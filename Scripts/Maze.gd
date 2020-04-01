@@ -33,7 +33,7 @@ func _ready():
 	seed(map_seed)
 	tile_size = Map.cell_size.x
 	build_maze()
-	#erase_walls()
+	erase_walls()
 
 func build_maze():
 	var unvisited_cells = []
@@ -81,8 +81,8 @@ func get_unvisited_neighbours(cell_location, unvisited_cells):
 
 func erase_walls():
 	for _i in range(int(MAP_WIDTH * MAP_HEIGHT * fraction_of_walls_to_remove)):
-		var x = int(rand_range(1, MAP_WIDTH - 1))
-		var y = int(rand_range(1, MAP_HEIGHT - 1))
+		var x = int(rand_range(1, (MAP_WIDTH - 1) / 2)) * 2
+		var y = int(rand_range(1, (MAP_HEIGHT - 1) / 2)) * 2
 		var cell = Vector2(x, y)
 		var neighbour = CELL_WALLS.keys()[randi() % CELL_WALLS.size()]
 		
@@ -92,4 +92,8 @@ func erase_walls():
 			var neighbour_walls = Map.get_cellv(cell + neighbour) - CELL_WALLS[-neighbour]
 			Map.set_cellv(cell, cell_walls)
 			Map.set_cellv(cell + neighbour, neighbour_walls)
+			if neighbour.x != 0:
+				Map.set_cellv(cell + neighbour / 2, 5)
+			else:
+				Map.set_cellv(cell + neighbour / 2, 10)
 		yield(get_tree(), 'idle_frame')
