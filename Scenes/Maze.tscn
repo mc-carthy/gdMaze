@@ -171,3 +171,6 @@ script = ExtResource( 2 )
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 format = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2( 3, 3 )

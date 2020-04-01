@@ -12,13 +12,17 @@ const CELL_WALLS = {
 	Vector2(-1, 0): W,
 }
 
-const MAP_WIDTH : int = 21
-const MAP_HEIGHT : int = 12
+const MAP_WIDTH : int = 48
+const MAP_HEIGHT : int = 28
 var tile_size : float
 
 onready var Map : TileMap = $TileMap
+onready var Cam : Camera2D = $Camera2D
 
 func _ready():
+	Cam.make_current()
+	Cam.zoom = Vector2(3, 3)
+	Cam.position = Map.map_to_world(Vector2(MAP_WIDTH / 2, MAP_HEIGHT / 2))
 	randomize()
 	tile_size = Map.cell_size.x
 	build_maze()
